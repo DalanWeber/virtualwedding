@@ -1,0 +1,9 @@
+.footer{
+    display: flex;
+    height: 50px;
+    width: 100vw;
+    box-sizing: content-box;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #F6e7cb;
+}

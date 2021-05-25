@@ -4,6 +4,8 @@ const express = require('express')
 const massive = require('massive')
 const session = require('express-session')
 
+const authContorller = require('./controllers/authController')
+
 //destructure variables off the .env file
 const {CONNECTION_STRING, SESSION_SECRET, SERVER_PORT} = process.env
 
@@ -31,4 +33,10 @@ massive({
 })
 .catch(err => console.log(err))
 
-//Please
+//Auth Endpoints
+app.post('/api/auth/register', authContorller.register)
+app.post('/api/auth/login', authContorller.login)
+app.get('/api/auth/guest', authContorller.getGuest)
+app.post("/api/auth/logout", authContorller.logout)
+
+
