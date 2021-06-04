@@ -1,0 +1,40 @@
+.welcome{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100vw;
+    height: calc(100vh - 150px);
+    background-image: url('../../photos/3L3A7809.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+img{
+ max-width: 90vw;
+height: auto;
+ max-height: 85%;
+}
+
+.welcomemessage{
+    background:rgba(255,255,255,0.75);
+    font-size:3em;
+    border: solid black 3px;
+    border-top-left-radius:10px;
+    border-bottom-right-radius:10px;
+    height: fit-content;
+    width: fit-content;
+    margin: 100px;
+    padding: 5px;
+}
+
+$breakpoint-mobile: 1000px;
+
+@media (max-width: $breakpoint-mobile){
+    .welcomemessage{
+        font-size: 1.75em;
+        width: 80%;
+    }
+}

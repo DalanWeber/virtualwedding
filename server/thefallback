@@ -1,0 +1,143 @@
+module.exports = {
+  readGuests: async (req, res) => {
+    const db = await req.app.get("db");
+
+    db.guests.find_guests().then((guests) => res.status(200).send(guests));
+  },
+  editGuests: async (req, res) => {
+    const db = await req.app.get("db");
+    const { email, is_admin, guest_id } = req.body;
+
+    if (is_admin) {
+      db.guest.update_guest(is_admin, +guest_id);
+      return res.sendStatus(200);
+    } else {
+      let [guest] = await db.guest.update_guestemail(email, +guest_id);
+      delete guest.password;
+      req.session.guest = guest;
+      return res.status(200).send(guest);
+    }
+  }
+}
+
+
+
+
+import React from "react";
+import "./Guests.css";
+import photo from "../../photos/3L3A6977.jpg";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Guest from "../Guest/Guest";
+import {setGuest} from '../../redux/authReducer'
+const Guests = (props) => {
+  const [guests, setGuests] = useState([]);
+  const [email, setEmail] = useState('')
+  const { guest } = useSelector((store) => store.authReducer);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    axios
+      .get("/api/guests/read")
+      .then((res) => {
+        setGuests(res.data);
+        console.log(guests);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+const handleEdit = () => {
+    axios
+    .put('/api/guests/edit', {
+      email: email ||guest?.email,
+      guest_id: guest.guest_id
+    })
+    .then((res)=>{
+      setEmail('')
+      catchUpdates()
+      dispatch(setGuest(res.data))
+    })
+    .catch(err => console.log(err))
+  }
+
+  const catchUpdates = () => {
+    axios
+      .get("/api/guests/read")
+      .then((res) => {
+        setGuests(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+  return (
+    <div className="guests">
+      <div className="guestcard">
+        <h2> Your Guestcard:</h2>
+        <h5>Username: {guest?.username}</h5>
+        <h5>Email: {guest?.email}</h5>
+        <input placeholder='Update Email' value={email} onChange={(e)=>{setEmail(e.target.value)}}/><button onClick={()=>handleEdit()}>Save</button>
+      </div>
+      {guest?.is_admin && <h1>Guestlist:</h1>}
+      {guest?.is_admin &&
+        guests.map((guest) => {
+          return (
+            <div>
+              <Guest key={guest?.guest_id} guest={guest} catchUpdates={catchUpdates}/>
+            </div>
+          );
+        })}
+    </div>
+  );
+};
+
+export default Guests;
+
+
+import React, { Component } from "react";
+import "./Guest.css";
+import photo from "../../photos/3L3A6977.jpg";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { render } from "@testing-library/react";
+
+const Guest = (props) => {
+  const makeAdmin = () => {
+    axios.put("api/guests/edit", {
+      is_admin: true,
+      guest_id: props.guest.guest_id,
+    })
+    .then((res) => {
+      props.catchUpdates();
+    })
+      .catch((err) => console.log(err))
+  }
+  const removeAdmin = () => {
+    axios
+      .put("api/guests/edit", {
+      is_admin: false,
+      guest_id: props.guest.guest_id,
+    })      
+      .then((res) => {
+      props.catchUpdates();
+    })
+      .catch((err) => console.log(err))
+  };
+
+  return (
+    <div>
+      <div>
+        Username: {props.guest.username}
+        <br />
+        Email: {props.guest.email && `${props.guest.email}`}
+        <br />
+        Admin: {`${props.guest.is_admin}`}
+        <br />
+        {!props.guest.is_admin && <button onClick={() => makeAdmin()}>Make Admin</button>}
+        {props.guest.is_admin &&<button onClick={() => removeAdmin()}>Remove Admin</button>}
+      </div>
+    </div>
+  );
+};
+
+export default Guest;

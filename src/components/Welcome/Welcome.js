@@ -1,12 +1,11 @@
 import React from 'react'
-import './Welcome.css'
-import photo from '../../photos/3L3A6977.jpg'
+import './Welcome.scss'
 
 const Welcome = (props) =>{
     return(
         <div className='welcome'>
-            <p>Thanks for attending! Take a look around using the links at the top of the screen!</p>
-            <img src={photo} alt="a wedding photo"/>
+            <p className='welcomemessage'>Thanks for coming! Take a look around using the menu at the top of the screen!</p>
+
         </div>
     )
 }

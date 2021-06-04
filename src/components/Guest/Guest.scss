@@ -1,0 +1,12 @@
+.guesslist{
+    display: flex;
+    align-items: flex-start;
+    margin: 10px;
+    width: 200px;
+    overflow:auto;
+    font-family: 'Raleway', sans-serif;
+    
+    button{
+        font-size: medium;
+    }
+}

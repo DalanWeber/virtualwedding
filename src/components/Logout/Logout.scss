@@ -1,0 +1,21 @@
+.logout{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100vw;
+    height: calc(100vh - 50px);
+    background-image: url('../../photos/3L3A9427.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.logoutmessage{
+    text-align: center;
+    background:rgba(255,255,255,0.65);
+    font-size:3em;
+    border: solid black 3px;
+    border-top-left-radius:10px;
+    border-bottom-right-radius:10px;
+}

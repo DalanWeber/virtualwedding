@@ -1,3 +1,4 @@
+drop table if exists wedding_guestbook;
 drop table if exists wedding_posts;
 drop table if exists wedding_guests;
 
@@ -19,4 +20,12 @@ create table wedding_posts
     content varchar(500),
     cheers int default 0,
     author_id int references wedding_guests(guest_id) 
+)
+
+create table wedding_guestbook
+(
+    entry_id serial primary key,
+    content VARCHAR(125),
+    author_id int references wedding_guests(guest_id),
+    img VARCHAR(250)
 )

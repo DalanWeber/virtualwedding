@@ -1,2 +1,3 @@
-select * from wedding_guests
+select *
+from wedding_guests
 where username = $1

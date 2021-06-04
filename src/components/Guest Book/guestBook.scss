@@ -1,0 +1,57 @@
+.book{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100vw;
+    height: calc(100vh - 150px);
+    background-image: url('../../photos/3L3A7825.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.sigs{
+    text-align: left;
+    background:rgba(255,255,255,0.80);
+    font-size:1.5em;
+    border: solid black 3px;
+    border-top-left-radius:10px;
+    border-bottom-right-radius:10px;
+    padding: 20px;
+    margin: 15px;
+    max-height: 80%;
+    width: 80%;
+    overflow: auto;
+    padding: 5px;
+    
+}
+
+.exactsigs{
+    margin: 15px;
+    border-bottom: solid black 3px;
+    overflow-wrap: normal;
+}
+.signor{
+    font-size: 2em;
+    font-weight: 900;
+}
+
+.signed{
+    font-family: 'Raleway', sans-serif;
+}
+
+.optional{
+    font-size: 1.5em;
+    overflow-wrap: normal;
+    font-weight: 800;
+
+}
+
+$breakpoint-mobile: 1000px;
+
+@media (max-width: $breakpoint-mobile){
+    input{
+        size: 14;
+    }
+}

@@ -1,0 +1,22 @@
+.posts{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    justify-items: center;
+    box-sizing: border-box;
+    height: calc(100vh - 150px);
+    width: fit-content;
+    background: #d7dddd;
+    overflow: auto;
+}
+
+.post{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    max-width: 30%;
+    min-width: 300px;
+}
+
+

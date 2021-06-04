@@ -6,6 +6,8 @@ const session = require('express-session')
 
 const authController = require('./controllers/authController')
 const postController = require('./controllers/postController')
+const gbController = require('./controllers/guestbookController')
+const gController = require('./controllers/guestController')
 //destructure variables off the .env file
 const {CONNECTION_STRING, SESSION_SECRET, SERVER_PORT} = process.env
 
@@ -41,3 +43,17 @@ app.post("/api/auth/logout", authController.logout)
 
 //Post Endpoints
 app.post('/api/post/create', postController.createPost)
+app.get('/api/posts/read', postController.readPosts)
+app.put('/api/posts/update', postController.editPost)
+app.delete('/api/posts/delete/:id', postController.deletePost)
+
+//guestbook endpoints
+app.post('/api/guestbook/sign', gbController.createEntry)
+app.get('/api/guestbook/read', gbController.readEntries)
+app.delete('/api/guestbook/delete/:id', gbController.deleteEntry)
+
+//guest endpoints
+app.get('/api/guests/read', gController.readGuests)
+app.put('/api/guests/edit', gController.editGuests)
+
+
