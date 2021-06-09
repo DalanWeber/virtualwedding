@@ -13,6 +13,9 @@
   font-size: larger;
   min-height: min-content;
   box-sizing: border-box;
+  word-wrap: break-word;
+  text-align: center;
+
 
   img {
     max-width: 98%;
@@ -22,6 +25,7 @@
   h2 {
     font-size: 2.5em;
     margin: 2px;
+    
   }
   .content {
     font-family: "Raleway", sans-serif;
@@ -34,11 +38,27 @@
     font-size: 12px;
   }
   input {
-    width: 275px;
+    width: 97%;
   }
   .buttons {
     width: 90%;
   }
+  .cheers{
+    display: flex;
+  }
+  .dropbox{
+
+    position: relative;
+    min-width: 90%;
+    text-align: center;
+    margin-top: 10px;
+    padding: 1px;
+    height: fit-content;
+    border: dashed 2px silver;
+    display: 'inline-block';
+    font-size: 17px;
+    font-family: "Raleway", sans-serif;
+}
 }
 
 $breakpoint-mobile: 1000px;
@@ -47,7 +67,7 @@ $breakpoint-mobile: 1000px;
   .postcontent {
 
     .form-text-box {
-      width: 90%;
+      width: 95%;
     }
 
     input{

@@ -69,7 +69,7 @@ const GuestBook = (props) => {
 
         <p>
           {!sign && entries.findIndex((el)=>{
-      return el.guest_id === guest.guest_id
+      return el.guest_id === guest?.guest_id
     })=== -1 && (
             <div className="signToggle">
               Sign Here{" "}

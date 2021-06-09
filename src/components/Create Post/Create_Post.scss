@@ -47,10 +47,30 @@
       }
 
     h2{
-        font-size: 1em;
+        font-size: 1.5em;
     }
     p{
-        margin: -5px;
+        margin: 5px;
+    }
+    textarea {
+      min-width: 100%;
+      max-width: 100%;
+      min-height: 100px;
+      font-family: "Raleway", sans-serif;
+      font-size: 12px;
+    }
+    .dropbox{
+
+        position: relative;
+        min-width: 90%;
+
+        margin-top: 10px;
+        padding: 10px;
+        height: 200px;
+        border: dashed 2px silver;
+        display: 'inline-block';
+        font-size: 17px;
+        font-family: "Raleway", sans-serif;
     }
 }
 

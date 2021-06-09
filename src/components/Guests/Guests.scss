@@ -1,19 +1,22 @@
 .guests{
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-items: center;
-    box-sizing: border-box;
+    overflow: hidden;
+    box-sizing: content-box;
     height: calc(100vh - 150px);
     max-width: 100vw;
-    overflow: auto;
     background-image: url('../../photos/3L3A8354.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff
+    
 }
 .guestcard{
+    position: relative;
     margin: 20px;
     padding:10px 20px;
     background:white;
@@ -22,8 +25,10 @@
     border-top-left-radius:10px;
     border-bottom-right-radius:10px;
     width: height;
+    box-sizing: border-box;
 }
 .guestlist{
+    position: relative;
     padding:10px 20px;
     background:white;
     border-top: solid black 3px;
@@ -31,4 +36,87 @@
     border-top-left-radius:10px;
     border-bottom-right-radius:10px;
     margin: 10px;
+}
+.guestcards{
+    position: relative;
+    overflow: scroll;
+    height: 10.5%;
+    box-sizing: border-box;
+    width: fit-content;
+}
+.messaging{
+    display: flex;
+    width: 32%;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+.messagebody{
+    padding:10px 20px 5px 20px;
+    background:white;
+    border-top: solid black 3px;
+    border-bottom: solid black 3px;
+    border-top-left-radius:10px;
+    border-bottom-right-radius:10px;
+    margin: 10px;
+    height: 7.62%;
+    font-size: larger;
+
+        textarea {
+      min-width: 100%;
+      max-width: 100%;
+      min-height: 150px;
+      font-family: "Raleway", sans-serif;
+      font-size: 12px;
+    }
+}
+.message{
+    box-sizing: border-box;
+}
+$breakpoint-tablet: 1700px;
+$breakpoint-mobile: 1000px;
+
+@media (max-width: $breakpoint-tablet) {
+    .messaging{
+        width: 65%;
+    }
+    .guestcard{
+        height: 50%;
+        font-size: 20px;
+        padding: 5px;
+        margin: 5px;
+    }
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .guests{
+        overflow: auto;
+
+    }
+    .messaging{
+        width: 55%;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+    }
+    .guestcard{
+        height: 50%;
+        font-size: 20px;
+        padding: 5px;
+        margin: 5px;
+    }
+    .guestcards{
+        height: fit-content;
+        width: fit-content;
+        align-content: center;
+        align-items: center;
+        
+    }
+    .messagebody{
+        height: fit-content;
+        width: fit-content;
+    }
+    .message{
+        height:fit-content;
+        width: fit-content;
+    }
 }

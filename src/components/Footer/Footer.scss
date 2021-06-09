@@ -5,9 +5,18 @@
     box-sizing: border-box;
     align-items: center;
     justify-content: space-around;
-    background-color: #F6e7cb;
     position: relative;
     bottom: 0;
     color: whitesmoke;
-    background-color: rgba(0, 0, 0, .5);
+    // background-color: rgba(0, 0, 0, .5);
+    background: -webkit-linear-gradient(top, rgba(10,8,9,1) 0%,rgba(10,14,10,1) 0%,rgba(110,119,116,1) 40%,rgba(0, 0, 0, .5) 100%);
+    a{
+        color: black;
+        &:hover {
+          color: bisque;
+        }
+        &:visited {
+          text-decoration: none;
+        }
+      }
 }

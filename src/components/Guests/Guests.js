@@ -10,6 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Guests = (props) => {
   const [guests, setGuests] = useState([]);
   const [email, setEmail] = useState("");
+  const [maillist, setMaillist] = useState('');
+  const [mailbody, setMailbody] = useState('');
+  
   const { guest } = useSelector((store) => store.authReducer);
   const dispatch = useDispatch();
 
@@ -44,6 +47,9 @@ const Guests = (props) => {
       })
       .catch((err) => console.log(err));
   };
+  const sendEmail = () => {
+    
+  }
   return (
     <div className="guests">
       <div className="guestcard">
@@ -51,7 +57,8 @@ const Guests = (props) => {
         <h5>Username: {guest?.username}</h5>
         <h5>Email: {guest?.email}</h5>
         <form>
-        <FontAwesomeIcon icon="inbox" /> : <input
+          <FontAwesomeIcon icon="inbox" /> :{" "}
+          <input
             type="email"
             placeholder="Update Email"
             value={email}
@@ -64,19 +71,56 @@ const Guests = (props) => {
           <button onClick={() => handleEdit()}>Save</button>
         </form>
       </div>
-      {guest?.is_admin && <h1>Guestlist:</h1>}
-      {guest?.is_admin &&
-        guests.map((guest) => {
-          return (
-            <div className="guestlist">
-              <Guest
-                key={guest?.guest_id}
-                guest={guest}
-                catchUpdates={catchUpdates}
+      <div className="messaging">
+        <div className="guestcards">
+          {guest?.is_admin && <h1>Guestlist:</h1>}
+          {guest?.is_admin &&
+            guests.map((guest) => {
+              return (
+                <div className="guestlist">
+                  <Guest
+                    key={guest?.guest_id}
+                    guest={guest}
+                    catchUpdates={catchUpdates}
+                  />
+                </div>
+              );
+            })}
+        </div>
+        <div className="message">
+          {guest?.is_admin && <h1>Send Message:</h1>}
+          {guest?.is_admin && (
+            <div className="messagebody">
+              To:{" "}
+              <input
+                value={maillist}
+                onChange={(e)=>{setMaillist(e.target.value)}}
+                placeholder='email(s)'
+                onClick={() =>
+                  alert(
+                    `
+              Enter indvidual email adresses within quotes! 
+              EXAMPLE: 'example@email.com'
+
+              To enter multiple emails, seperate each
+              email with a , to allow the system to read each individual
+              email address!
+              EXAMPLE: 'example@email.com , example2@email.com'
+              `
+                  )
+                }
+              />{" "}
+              <br />
+              Message: <br />
+              <textarea 
+                value={mailbody}
+                onChange={(e)=>{setMailbody(e.target.value)}}
               />
+              <button onClick={()=>sendEmail()}>Send</button>
             </div>
-          );
-        })}
+          )}
+        </div>
+      </div>
     </div>
   );
 };

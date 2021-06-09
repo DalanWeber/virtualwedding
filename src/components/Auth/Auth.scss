@@ -35,6 +35,14 @@
     font-weight: 900;
     font-size: larger;
     text-align: center;
+
+    button{
+        font-size: large;
+    }
+    .form{
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .header{
@@ -62,8 +70,12 @@ $breakpoint-mobile: 700px;
         top: 20px;
     }
     .login{
-        font-size: .7em;
+        font-size: .8em;
         width: fit-content;
         margin: 10px;
+    
+        button{
+            font-size: medium;
+        }
   }
 }

@@ -3,17 +3,17 @@ require('dotenv').config()
 const express = require('express')
 const massive = require('massive')
 const session = require('express-session')
-
+const nodemailer = require("nodemailer");
 const authController = require('./controllers/authController')
 const postController = require('./controllers/postController')
 const gbController = require('./controllers/guestbookController')
 const gController = require('./controllers/guestController')
 //destructure variables off the .env file
-const {CONNECTION_STRING, SESSION_SECRET, SERVER_PORT} = process.env
+const {CONNECTION_STRING, SESSION_SECRET, SERVER_PORT,S3_BUCKET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY} = process.env
 
 //Instance the app
 const app = express()
-
+const aws = require('aws-sdk');
 //middleware that we need
 app.use(express.json())
 app.use(session({
@@ -56,4 +56,90 @@ app.delete('/api/guestbook/delete/:id', gbController.deleteEntry)
 app.get('/api/guests/read', gController.readGuests)
 app.put('/api/guests/edit', gController.editGuests)
 
+//S3 endpoints
+app.get('/api/signs3', (req, res) => {
+    aws.config = {
+      region: 'us-west-1',
+      accessKeyId: AWS_ACCESS_KEY_ID,
+      secretAccessKey: AWS_SECRET_ACCESS_KEY,
+    };
+  
+    const s3 = new aws.S3();
+    const fileName = req.query['file-name'];
+    const fileType = req.query['file-type'];
+    const s3Params = {
+      Bucket: S3_BUCKET,
+      Key: fileName,
+      Expires: 60,
+      ContentType: fileType,
+      ACL: 'public-read',
+    };
+  
+    s3.getSignedUrl('putObject', s3Params, (err, data) => {
+      if (err) {
+        console.log(err);
+        return res.end();
+      }
+      const returnData = {
+        signedRequest: data,
+        url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
+      };
+  
+      return res.send(returnData);
+    });
+  });
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'youremail@gmail.com',
+    pass: 'yourpassword'
+  }
+}); 
+
+const mailOptions = {
+  from: 'youremail@gmail.com',
+  to: 'myfriend@yahoo.com',
+  subject: 'Sending Email using Node.js',
+  text: 'That was easy!'
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
+
+
+
+
+
+
+
+// app.put('/api/deletes3',(req,res) => {
+//   aws.config = {
+//     region: 'us-west-1',
+//     accessKeyId: AWS_ACCESS_KEY_ID,
+//     secretAccessKey: AWS_SECRET_ACCESS_KEY,
+//   };
+
+//   const s3 = new aws.S3();
+//   const key = req.query['key'];
+//   const params = { 
+//     Bucket: S3_BUCKET,
+//     Key: key,
+//   }
+
+
+
+//   s3.deleteObject(params, function(err,data) {
+//     if(err) {
+//      console.log(err,err.stack);
+//     }
+//     else {
+//      console.log(data);
+//     }
+//    });
+// })

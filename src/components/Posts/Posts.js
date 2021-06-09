@@ -29,17 +29,35 @@ const Posts = (props) => {
       })
       .catch((err) => console.log(err));
   };
-  const handleDelete = (post_id) => {
+  const handleDelete = (post_id, img) => {
+    console.log({post_id})
+    console.log({img})
     axios
       .delete(`/api/posts/delete/${post_id}`)
       .then((res) => {
         axios.get("api/posts/read").then((res) => {
           setPosts(res.data);
+          // s3delete()
+          // console.log(img)
+          // console.log(post_id)
         });
         // console.log('that was the issue')
       })
       .catch((err) => console.log(err));
   };
+  // const s3delete = () =>{
+  //   // let key = image.substring(43)
+
+  //   let key = 'f1735014-9831-4f51-931e-4fcd83eec776-3L3A7607.jpg'
+  //   axios
+  //   .put('/api/deletes3', {
+  //     params: {
+  //       'key': key
+  //     }
+  //   })
+  //   .then((res)=> console.log('it worked'))
+  //   .catch((err) => console.log(err))
+  // }
   const catchUpdates = () => {
     axios
       .get("api/posts/read")
