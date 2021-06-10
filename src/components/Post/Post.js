@@ -82,9 +82,8 @@ const Post = (props) => {
         }
       });
   };
-  console.log(props)
   return edit ? (
-    <div>
+    <div key={props.post.post_id}>
       <div>
         <div>
           <div className="postcontent">

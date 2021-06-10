@@ -1,3 +1,5 @@
+@import '../../SCSS/main.scss';
+
 .logout{
     display: flex;
     justify-content: space-around;
@@ -6,9 +8,7 @@
     width: 100vw;
     height: calc(100vh - 50px);
     background-image: url('../../photos/3L3A9427.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+@include background;
 }
 
 .logoutmessage{

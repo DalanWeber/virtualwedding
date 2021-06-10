@@ -49,10 +49,10 @@ const Auth = (props) => {
   return (
     <div className="auth">
       <div></div>
-      <h1 className="header">We're engaged!</h1>
+      <h1 className="header">We had a wedding!</h1>
       <div></div>
       <div className="login">
-        <h2>And you're invited to the wedding!</h2>
+        <h2>And you're invited!</h2>
         <h3>Please login below to attend!</h3>
         <form className="form">
           <input

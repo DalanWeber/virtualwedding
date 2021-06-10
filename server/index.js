@@ -8,12 +8,14 @@ const authController = require('./controllers/authController')
 const postController = require('./controllers/postController')
 const gbController = require('./controllers/guestbookController')
 const gController = require('./controllers/guestController')
+const mailerctrl = require('./controllers/mailerController')
 //destructure variables off the .env file
 const {CONNECTION_STRING, SESSION_SECRET, SERVER_PORT,S3_BUCKET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY} = process.env
 
 //Instance the app
 const app = express()
 const aws = require('aws-sdk');
+
 //middleware that we need
 app.use(express.json())
 app.use(session({
@@ -89,28 +91,11 @@ app.get('/api/signs3', (req, res) => {
     });
   });
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'youremail@gmail.com',
-    pass: 'yourpassword'
-  }
-}); 
 
-const mailOptions = {
-  from: 'youremail@gmail.com',
-  to: 'myfriend@yahoo.com',
-  subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
-};
+  //nodemailer
+app.put('/api/guest/send' , mailerctrl.send)
 
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});
+
 
 
 

@@ -48,7 +48,17 @@ const Guests = (props) => {
       .catch((err) => console.log(err));
   };
   const sendEmail = () => {
-    
+    axios
+      .put('/api/guest/send',{
+        list: maillist,
+        body: mailbody,
+      })
+      .then((res) => {
+        alert('Message Sent')
+        setMaillist('');
+        setMailbody('');
+      })
+      .catch((err) => console.log(err));
   }
   return (
     <div className="guests">
@@ -63,7 +73,7 @@ const Guests = (props) => {
             placeholder="Update Email"
             value={email}
             required
-            minlength="8"
+            
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -77,9 +87,9 @@ const Guests = (props) => {
           {guest?.is_admin &&
             guests.map((guest) => {
               return (
-                <div className="guestlist">
+                <div className="guestlist" key={guest?.guest_id}>
                   <Guest
-                    key={guest?.guest_id}
+                    
                     guest={guest}
                     catchUpdates={catchUpdates}
                   />
@@ -99,13 +109,13 @@ const Guests = (props) => {
                 onClick={() =>
                   alert(
                     `
-              Enter indvidual email adresses within quotes! 
-              EXAMPLE: 'example@email.com'
+              Enter an indvidual email! 
+              EXAMPLE: example@email.com
 
               To enter multiple emails, seperate each
               email with a , to allow the system to read each individual
               email address!
-              EXAMPLE: 'example@email.com , example2@email.com'
+              EXAMPLE: example@email.com , example2@email.com
               `
                   )
                 }

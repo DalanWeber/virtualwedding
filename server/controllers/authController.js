@@ -12,7 +12,7 @@ module.exports = {
         const salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(password, salt)
         const [Guest] = createGuest = await db.guest.create_guest(username,hash)
-        
+        delete Guest.password
         req.session.guest = Guest
         return res.status(200).send(req.session.guest)
     },
@@ -27,6 +27,7 @@ module.exports = {
 
         const isAuthenticated = bcrypt.compareSync(password, Guest.password)
         if(isAuthenticated){
+            delete Guest.password
             req.session.guest = Guest
             return res.status(200).send(req.session.guest)
         }

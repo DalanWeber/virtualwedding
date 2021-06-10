@@ -1,7 +1,9 @@
+@import '../../SCSS/main.scss';
+
 .create{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     box-sizing: border-box;
     width: 100vw;
@@ -9,9 +11,7 @@
     overflow: auto;
     position: relative;
     background-image: url('../../photos/3L3A6985.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    @include background;
 }
 
 .form-main{
@@ -20,7 +20,7 @@
     border: solid black 3px;
     border-top-left-radius:10px;
     border-bottom-right-radius:10px;
-    max-height: 95%;
+    // max-height: 95%;
     height: fit-content;
     width: 50%;
     position: relative;
@@ -55,7 +55,7 @@
     textarea {
       min-width: 100%;
       max-width: 100%;
-      min-height: 100px;
+      min-height: 200px;
       font-family: "Raleway", sans-serif;
       font-size: 12px;
     }
@@ -63,7 +63,7 @@
 
         position: relative;
         min-width: 90%;
-
+        min-height: 90px;
         margin-top: 10px;
         padding: 10px;
         height: 200px;
@@ -85,5 +85,21 @@ $breakpoint-mobile: 1000px;
         font-family: 'Raleway', sans-serif;
         font-size: 10px;
       }
+  }
+  .dropbox{
+    height: 10px;
+    font-size: 5px;
+    padding: -15px;
+  }
+  .form-main{
+    width: 75%;
+    height: fit-content;
+  }
+  h2{
+    font-size: .75em;
+  }
+  p{
+    font-size: medium;
+    margin-top: 0;
   }
 }

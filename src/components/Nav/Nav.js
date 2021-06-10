@@ -3,7 +3,7 @@ import "./Nav.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/authReducer";
-import { setGuest } from "../../redux/authReducer";
+import { setGuest, toggle } from "../../redux/authReducer";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -31,68 +31,101 @@ const Nav = (props) => {
       setShowmenu(false);
     });
   };
-
+  const usetoggle = () => {
+    dispatch(toggle())
+  }
   return (
     location.pathname !== "/" &&
     location.pathname !== "/logout" && (
       <div className="nav">
-        <div>Welcome {guest?.username}!</div>
+        <div className="username">
+          <div>Welcome {guest?.username}!</div>
+          {guest?.username === "Demo" && (
+            <div className="toggle">
+              {" "}
+              Toggle Admin: 
+              <input type="checkbox"
+              checked = {guest.is_admin}
+              onChange={usetoggle}
+               />
+            </div>
+          )}
+        </div>
 
         <ul className="nav-main">
-          {location.pathname !== "/welcome" && (<Link to="/welcome">
-            <button className="navbutton">
-              <li>Welcome</li>
-            </button>
-          </Link>)}
-          {guest?.is_admin && 
-            location.pathname !== "/create_post" &&(
-            <Link to="/create_post">
+          {location.pathname !== "/welcome" && (
+            <Link to="/welcome">
               <button className="navbutton">
-                <li>Create Post</li>
+                <li>Welcome</li>
               </button>
             </Link>
           )}
-          {location.pathname !== "/posts" && (<Link to="/posts">
-            <button className="navbutton">
-              <li>Posts</li>
-            </button>
-          </Link>)}
-          {location.pathname !== "/guestbook" && (<Link to="/guestbook">
-            <button className="navbutton">
-              <li>Guest Book</li>
-            </button>
-          </Link>)}
-          {location.pathname !== "/guests" && (<Link to="/guests">
-            <button className="navbutton">
-              <li>Guest Info</li>
-            </button>
-          </Link>)}
+          {guest?.is_admin && location.pathname !== "/create_post" && (
+            <Link to="/create_post">
+              <button className="navbutton">
+                <li>Create a Memory</li>
+              </button>
+            </Link>
+          )}
+          {location.pathname !== "/posts" && (
+            <Link to="/posts">
+              <button className="navbutton">
+                <li>Memories</li>
+              </button>
+            </Link>
+          )}
+          {location.pathname !== "/guestbook" && (
+            <Link to="/guestbook">
+              <button className="navbutton">
+                <li>Guest Book</li>
+              </button>
+            </Link>
+          )}
+          {location.pathname !== "/guests" && (
+            <Link to="/guests">
+              <button className="navbutton">
+                <li>Guest Info</li>
+              </button>
+            </Link>
+          )}
         </ul>
         <ul className={`nav-drop ${showMenu ? "show" : ""}`}>
-        {location.pathname !== "/welcome" && (<Link to="/welcome" onClick={() => setShowmenu(!showMenu)}>
-            <li>Welcome</li>
-          </Link>)}
-          {guest?.is_admin && 
-            location.pathname !== "/create_post" && (<Link to="/create_post" onClick={() => setShowmenu(!showMenu)}>
-              <li>Create Post</li>
-            </Link>)}
-          {location.pathname !== "/posts" && (<Link to="/posts" onClick={() => setShowmenu(!showMenu)}>
-            <li>Posts</li>
-          </Link>)}
-          {location.pathname !== "/guestbook" && (<Link to="/guestbook" onClick={() => setShowmenu(!showMenu)}>
-            <li>Guest Book</li>
-          </Link>)}
-          {location.pathname !== "/guests" && (<Link to="/guests" onClick={() => setShowmenu(!showMenu)}>
-            <li>Guest Info</li>
-          </Link>)}
-          {location.pathname !== "/logout" && (<Link to="/logout" onClick={uselogout}>
-            <button>
-              <FontAwesomeIcon icon="sign-out-alt" />
-            </button>
-          </Link>)}
+          {location.pathname !== "/welcome" && (
+            <Link to="/welcome" onClick={() => setShowmenu(!showMenu)}>
+              <li>Welcome</li>
+            </Link>
+          )}
+          {guest?.is_admin && location.pathname !== "/create_post" && (
+            <Link to="/create_post" onClick={() => setShowmenu(!showMenu)}>
+              <li>Create Memories</li>
+            </Link>
+          )}
+          {location.pathname !== "/posts" && (
+            <Link to="/posts" onClick={() => setShowmenu(!showMenu)}>
+              <li>Memories</li>
+            </Link>
+          )}
+          {location.pathname !== "/guestbook" && (
+            <Link to="/guestbook" onClick={() => setShowmenu(!showMenu)}>
+              <li>Guest Book</li>
+            </Link>
+          )}
+          {location.pathname !== "/guests" && (
+            <Link to="/guests" onClick={() => setShowmenu(!showMenu)}>
+              <li>Guest Info</li>
+            </Link>
+          )}
+          {location.pathname !== "/logout" && (
+            <Link to="/logout" onClick={uselogout}>
+              <button>
+                <FontAwesomeIcon icon="sign-out-alt" />
+              </button>
+            </Link>
+          )}
         </ul>
         <div className="nav-main">
-          Logout: <Link to="/logout" onClick={uselogout}>
+          Logout:{" "}
+          <Link to="/logout" onClick={uselogout}>
             <button>
               <FontAwesomeIcon icon="sign-out-alt" />
             </button>

@@ -30,8 +30,6 @@ const Posts = (props) => {
       .catch((err) => console.log(err));
   };
   const handleDelete = (post_id, img) => {
-    console.log({post_id})
-    console.log({img})
     axios
       .delete(`/api/posts/delete/${post_id}`)
       .then((res) => {
@@ -72,8 +70,9 @@ const Posts = (props) => {
     <div className="posts">
       {posts.map((post) => {
         return (
-          <div className="post">
+          <div className="post" key={post.post_id}>
             <Post
+              key={post.post_id}
               post={post}
               catchUpdates={catchUpdates}
               addCheers={addCheers}

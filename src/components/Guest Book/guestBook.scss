@@ -1,3 +1,5 @@
+@import '../../SCSS/main.scss';
+
 .book{
     display: flex;
     flex-direction: column;
@@ -7,9 +9,7 @@
     width: 100vw;
     height: calc(100vh - 150px);
     background-image: url('../../photos/3L3A7825.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    @include background;
 }
 
 .sigs{

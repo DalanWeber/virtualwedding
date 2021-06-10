@@ -58,7 +58,7 @@ const GuestBook = (props) => {
               <span className="signor">{entry.username}</span>
               <span className="signed">{entry.content && ` : ${entry.content}`}</span>
 
-              {entry.username === guest?.username && (
+              {(entry.username === guest?.username || guest?.is_admin) && (
                 <button onClick={() => handleDelete(`${entry.entry_id}`)}>
                   <FontAwesomeIcon icon="eraser" />
                 </button>
@@ -67,7 +67,7 @@ const GuestBook = (props) => {
           );
         })}
 
-        <p>
+        <div>
           {!sign && entries.findIndex((el)=>{
       return el.guest_id === guest?.guest_id
     })=== -1 && (
@@ -98,7 +98,7 @@ const GuestBook = (props) => {
               </button>
             </div>
           )}
-        </p>
+        </div>
       </div>
     </div>
   );
