@@ -3,12 +3,12 @@ require('dotenv').config()
 const express = require('express')
 const massive = require('massive')
 const session = require('express-session')
-const nodemailer = require("nodemailer");
 const authController = require('./controllers/authController')
 const postController = require('./controllers/postController')
 const gbController = require('./controllers/guestbookController')
 const gController = require('./controllers/guestController')
 const mailerctrl = require('./controllers/mailerController')
+const path = require('path')
 //destructure variables off the .env file
 const {CONNECTION_STRING, SESSION_SECRET, SERVER_PORT,S3_BUCKET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY} = process.env
 
@@ -17,6 +17,7 @@ const app = express()
 const aws = require('aws-sdk');
 
 //middleware that we need
+
 app.use(express.json())
 app.use(session({
     secret: SESSION_SECRET,
@@ -95,8 +96,10 @@ app.get('/api/signs3', (req, res) => {
   //nodemailer
 app.put('/api/guest/send' , mailerctrl.send)
 
-
-
+app.use(express.static(__dirname + '/../build'))
+app.get('*', (req,res) => {
+  res.sendFile(path.join(__dirname,'../build/index.html'))
+})
 
 
 

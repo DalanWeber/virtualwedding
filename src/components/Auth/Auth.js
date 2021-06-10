@@ -28,7 +28,8 @@ const Auth = (props) => {
     }
   };
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault()
     if (username === "") {
       alert("Please enter a Username and Password to Login");
     } else {
@@ -54,7 +55,7 @@ const Auth = (props) => {
       <div className="login">
         <h2>And you're invited!</h2>
         <h3>Please login below to attend!</h3>
-        <form className="form">
+        <form onSubmit={handleLogin}className="form">
           <input
             placeholder="Username"
             value={username}
@@ -68,10 +69,10 @@ const Auth = (props) => {
           />
 
           <div>
-            <button type="submit" onClick={handleLogin}>
+            <button type="submit">
               Login
             </button>
-            <button type="submit" onClick={handleRegister}>
+            <button onClick={handleRegister}>
               Register
             </button>
           </div>
