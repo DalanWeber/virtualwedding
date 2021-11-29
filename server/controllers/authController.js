@@ -31,7 +31,7 @@ module.exports = {
             req.session.guest = Guest
             return res.status(200).send(req.session.guest)
         }
-        return res.status(403).send("thats and oops")
+        return res.status(403).send("thats an oops")
     },
     logout: async (req,res) => {
         req.session.destroy()
